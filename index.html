@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report for Surgical Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            color: #333;
+            text-align: center;
+        }
+        .info-box, .image-container {
+            background: #e9ecef;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .info-box p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .info-box label {
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        caption {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+
+        .image-container {
+	    text-align: center;
+
+        }
+        .image-container img {
+            border: 2px solid black; /* Border style */
+            width: 100%; /* Adjust width as needed */
+            max-width: 600px; /* Limit the maximum width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stl-loader@1.0.0/STLLoader.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h3>Report for Surgical Guide</h3>
+        <div class="info-box">
+            <p><label for="patient-name">Patient's Name:</label> Any Acharjaa</p>
+            <p><label for="date">Date:</label> <span id="current-date"></span></p>
+            <p><label for="designer">Designed By:</label> Dr. Zubair</p>
+        </div>
+
+        
+        <!-- Additional content: Table -->
+        <table>
+            <caption>Implant For FDI 36</caption>
+            <tbody>
+                <tr>
+                    <td><strong>FDI Tooth Number:</strong></td>
+                    <td>36</td>
+                </tr>
+                <tr>
+                    <td><strong>Implant Manufacturer:</strong></td>
+                    <td>Osstem</td>
+                </tr>
+                <tr>
+                    <td><strong>Fixture ID:</strong></td>
+                    <td>TS3S5010S</td>
+                </tr>
+                <tr>
+                    <td><strong>Fixture Length:</strong></td>
+                    <td><b>10</b> mm</td>
+                </tr>
+                <tr>
+                    <td><strong>Fixture Diameter:</strong></td>
+                    <td><b>5</b> mm</td>
+                </tr>
+            </tbody>
+        </table>
+
+    <div class="image-container">
+        <h3>FDI 36 Axial View</h3>
+        <img src="./Capture/1.jpg" alt="Axial View">
+	<h3>Osstem TS3S5010S - 10 mm X 5 mm</h3>
+
+    </div>
+
+    <div class="image-container">
+        <h3>FDI 36 Coronal View</h3>
+        <img src="./Capture/2.jpg" alt="Coronal View">
+	<h3>Osstem TS3S5010S - 10 mm X 5 mm</h3>
+    </div>
+
+    <div class="image-container">
+        <h3>FDI 36 Sagittal View</h3>
+        <img src="./Capture/3.jpg" alt="Sagittal View">
+	<h3>Osstem TS3S5010S - 10 mm X 5 mm</h3>
+    </div>
+
+    <div class="image-container">
+        <h3>FDI 36 Panoramic View</h3>
+        <img src="./Capture/4.jpg" alt="Panoramic View">
+	<h3>Osstem TS3S5010S - 10 mm X 5 mm</h3>
+    </div>
+
+    <div class="image-container">
+        <h3>FDI 36 3D View</h3>
+        <img src="./Capture/5.jpg" alt="3D View">
+	<h3>Osstem TS3S5010S - 10 mm X 5 mm</h3>
+    </div>
+
+    </div>
+
+    <script>
+        // Function to format the date as "Month Day, Year"
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString(undefined, options);
+        }
+
+        // Get the current date
+        const currentDate = new Date();
+        // Format the date
+        const formattedDate = formatDate(currentDate);
+        // Set the date in the HTML element
+        document.getElementById('current-date').textContent = formattedDate;
+
+
+
+ 	// Basic scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Add ambient light
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        // Add directional light
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+
+        // Load STL file
+        const loader = new THREE.STLLoader();
+        loader.load('guide.stl', (geometry) => {
+            const material = new THREE.MeshStandardMaterial({ color: 0x555555 });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            // Center the model
+            const box = new THREE.Box3().setFromObject(mesh);
+            const center = box.getCenter(new THREE.Vector3());
+            mesh.position.sub(center);
+
+            // Adjust camera position
+            camera.position.z = 5;
+        });
+
+        // Render loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+</body>
+</html>
